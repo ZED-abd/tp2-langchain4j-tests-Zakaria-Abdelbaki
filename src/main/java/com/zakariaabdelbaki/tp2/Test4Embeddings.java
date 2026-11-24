@@ -2,7 +2,7 @@ package com.zakariaabdelbaki.tp2;
 
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.model.embedding.onnx.bgesmallenv15.BgeSmallEnV15EmbeddingModel;
+import dev.langchain4j.model.embedding.onnx.bgesmallenv15q.BgeSmallEnV15QuantizedEmbeddingModel;
 import dev.langchain4j.model.google.genai.GoogleGenAiEmbeddingModel;
 import dev.langchain4j.store.embedding.CosineSimilarity;
 
@@ -26,7 +26,7 @@ public class Test4Embeddings {
                 .flatMap(Arrays::stream).map(TextSegment::from).toList();
         String mode = args.length == 0 ? "comparaison" : args[0];
         if (!mode.equals("gemini")) {
-            afficher("BGE local", new BgeSmallEnV15EmbeddingModel().embedAll(segments).content());
+            afficher("BGE quantifié", new BgeSmallEnV15QuantizedEmbeddingModel().embedAll(segments).content());
         }
         if (!mode.equals("local")) {
             long attenteMillis = args.length > 1 ? Long.parseLong(args[1]) : 30_000;

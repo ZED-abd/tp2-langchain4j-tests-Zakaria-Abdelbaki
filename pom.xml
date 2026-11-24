@@ -47,9 +47,15 @@
             <artifactId>gson</artifactId>
             <version>2.15.0</version>
         </dependency>
+        <!-- Le Test4 utilisait d'abord le modèle BGE non quantifié.
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-embeddings-bge-small-en-v15</artifactId>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-easy-rag</artifactId>
         </dependency>
     </dependencies>
     <build>
