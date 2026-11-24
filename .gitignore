@@ -1,0 +1,9 @@
+/target/
+/.idea/
+*.iml
+.env*
+/docs/EMAIL_*.md
+/docs/resultats*.md
+/resultats/
+/ml.pdf
+*.log
