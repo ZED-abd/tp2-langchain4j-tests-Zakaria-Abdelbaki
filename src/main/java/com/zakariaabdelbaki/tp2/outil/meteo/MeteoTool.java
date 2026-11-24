@@ -8,9 +8,11 @@ import dev.langchain4j.agent.tool.Tool;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Locale;
 
@@ -64,6 +66,18 @@ public class MeteoTool {
             }
         }
         return false;
+    }
+
+    @Tool("Cherche une ville par son nom. Renvoie les coordonnées du premier résultat, latitude puis longitude.")
+    public double[] getCoordonnees(@P(name = "ville", value = "Nom de la ville à géocoder") String ville) {
+        String nom = URLEncoder.encode(ville, StandardCharsets.UTF_8);
+        URI uri = URI.create("https://geocoding-api.open-meteo.com/v1/search?count=1&language=fr&name=" + nom);
+        JsonArray resultats = lireJson(uri).getAsJsonArray("results");
+        if (resultats == null || resultats.isEmpty()) {
+            throw new IllegalArgumentException("Aucune coordonnée trouvée pour cette ville.");
+        }
+        JsonObject premier = resultats.get(0).getAsJsonObject();
+        return new double[]{premier.get("latitude").getAsDouble(), premier.get("longitude").getAsDouble()};
     }
 
     private JsonObject lireJson(URI uri) {

@@ -5,6 +5,10 @@ import java.util.Arrays;
 public class TestMeteo {
     public static void main(String[] args) {
         MeteoTool outil = new MeteoTool();
+        if (args.length > 0) {
+            System.out.println("Coordonnées : " + Arrays.toString(outil.getCoordonnees(String.join(" ", args))));
+            return;
+        }
         System.out.println("Rabat, latitude 34.02, longitude -6.84");
         for (int debut : new int[]{0, 1}) {
             int[] probabilites = outil.probabilites(34.02, -6.84, debut, 3);
